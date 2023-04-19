@@ -1,3 +1,3 @@
-# 🌟 Library CLI 📚
+# 🌟 The Quiet Corner CLI 📚
 
-This library management system. It is a console application where the user can see the available books and loan them.
+This is a Library management system. It is a console application where the customers can see the available books and loan them.
