@@ -1,25 +1,30 @@
 package system.theQuietCorner.user;
 
 import system.ColoursUtils;
+import static system.theQuietCorner.user.UserUtils.*;
+
 public abstract class User {
-    private int id;
+    private long id;
     private String name;
 
     private int age;
     private String email;
 
-    public User(int id, String name, int age, String email) {
-        this.id = id;
+    private String password;
+
+    public User(String name, int age, String email, String password) {
+        this.id = generateUniqueId();
         this.name = name;
         this.age = age;
         this.email = email;
+        this.password = password;
     }
 
-    public int getId() {
+    public long getId() {
         return id;
     }
 
-    public void setId(int id) {
+    public void setId(long id) {
         this.id = id;
     }
 
@@ -47,9 +52,19 @@ public abstract class User {
         this.email = email;
     }
 
+    public String getPassword() {
+        return password;
+    }
+
+    public void setPassword(String password) {
+        this.password = password;
+    }
+
+    public abstract UserType getType();
+
     public String getInformation() {
-        return ColoursUtils.red(this.name) + String.format(" (#%d), a %s, is %d years old, popularity %d%%, stars %s, hunger %d%%",
-                this.id,this.name, this.age, this.email);
+        return  String.format(" (#%d), %s, is %d years old, email %s, password %s, is a/an %s",
+                this.id,ColoursUtils.green(this.name), this.age, this.email, this.password, getType());
     }
 
 }
