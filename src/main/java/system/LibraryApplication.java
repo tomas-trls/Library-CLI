@@ -7,7 +7,7 @@ import system.theQuietCorner.user.Customer;
 import system.theQuietCorner.user.User;
 
 public class LibraryApplication {
-    public static void main(String[] args) {
+    public static void main(String[] args) throws Exception {
 
         Library theQuietCorner = new Library();
 
@@ -16,12 +16,9 @@ public class LibraryApplication {
         theQuietCorner.addUser(new Admin("Tomas",22,"gerome@gmail.com","password"));
         theQuietCorner.addUser(new Customer("Annick",18,"gerome@gmail.com","password"));
 
-        theQuietCorner.addBook(new Book("Fundamentals of Wavelets","Goswami, Jaideva","tech","signal_processing","Wiley"));
+        //theQuietCorner.addBook(new Book("Fundamentals of Wavelets","Goswami, Jaideva","tech","signal_processing","Wiley"));
 
-
-        System.out.println(theQuietCorner.getUserCount());
-        theQuietCorner.listUsers();
-
+        theQuietCorner.generateBooks();
         theQuietCorner.displayBooks();
     }
 }
