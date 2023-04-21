@@ -69,8 +69,8 @@ public class Book {
         this.publisher = publisher;
     }
 
-    public String getBookInformation(){
-        return String.format(" (#%d), %s written by %s is a %s and %s book. Published by: %s ",
+    public void getBookInformation(){
+        System.out.printf(" (#%d), %s written by %s is a %s and %s book. Published by: %s %n",
                 this.id, ColoursUtils.brightYellow(this.title), this.author, this.genre, this.subgenre, this.publisher);
     }
 

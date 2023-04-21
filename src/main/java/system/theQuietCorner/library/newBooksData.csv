@@ -1,0 +1,122 @@
+id,title,author,genre,subgenre,publisher
+2,"Fundamentals of Wavelets","Goswami, Jaideva",tech,signal_processing,Wiley
+3,"Data Smart","Foreman, John",tech,data_science,Wiley
+4,"God Created the Integers","Hawking, Stephen",tech,mathematics,Penguin
+5,Superfreakonomics,"Dubner, Stephen",science,economics,HarperCollins
+6,Orientalism,"Said, Edward",nonfiction,history,Penguin
+7,"Nature of Statistical Learning Theory, The","Vapnik, Vladimir",tech,data_science,Springer
+8,"Integration of the Indian States","Menon, V P",nonfiction,history,"Orient Blackswan"
+9,"Drunkard's Walk, The","Mlodinow, Leonard",science,mathematics,Penguin
+10,"Image Processing & Mathematical Morphology","Shih, Frank",tech,signal_processing,CRC
+11,"How to Think Like Sherlock Holmes","Konnikova, Maria",nonfiction,psychology,Penguin
+12,"Data Scientists at Work","Sebastian Gutierrez",tech,data_science,Apress
+13,"Slaughterhouse Five","Vonnegut, Kurt",fiction,classic,"Random House"
+14,"Birth of a Theorem","Villani, Cedric",science,mathematics,"Bodley Head"
+15,"Structure & Interpretation of Computer Programs","Sussman, Gerald",tech,computer_science,"MIT Press"
+16,"Age of Wrath, The","Eraly, Abraham",nonfiction,history,Penguin
+17,"Trial, The","Kafka, Frank",fiction,classic,"Random House"
+18,"Statistical Decision Theory'","Pratt, John",tech,data_science,"MIT Press"
+19,"Data Mining Handbook","Nisbet, Robert",tech,data_science,Apress
+20,"New Machiavelli, The","Wells, H. G.",fiction,novel,Penguin
+21,"Physics & Philosophy","Heisenberg, Werner",philosophy,science,Penguin
+22,"Making Software","Oram, Andy",tech,computer_science,"O'Reilly"
+23,"Analysis, Vol I","Tao, Terence",tech,mathematics,HBA
+24,"Machine Learning for Hackers","Conway, Drew",tech,data_science,"O'Reilly"
+25,"Signal and the Noise, The","Silver, Nate",tech,data_science,Penguin
+26,"Python for Data Analysis","McKinney, Wes",tech,data_science,"O'Reilly"
+27,"Introduction to Algorithms","Cormen, Thomas",tech,computer_science,"MIT Press"
+28,"Beautiful and the Damned, The","Deb, Siddhartha",nonfiction,history,Penguin
+29,"Outsider, The","Camus, Albert",fiction,classic,Penguin
+30,"Complete Sherlock Holmes, The - Vol I","Doyle, Arthur Conan",fiction,classic,"Random House"
+31,"Complete Sherlock Holmes, The - Vol II","Doyle, Arthur Conan",fiction,classic,"Random House"
+32,"Wealth of Nations, The","Smith, Adam",science,economics,"Random House"
+33,"Pillars of the Earth, The","Follett, Ken",fiction,novel,"Random House"
+34,"Mein Kampf","Hitler, Adolf",nonfiction,autobiography,Rupa
+35,"Tao of Physics, The","Capra, Fritjof",science,physics,Penguin
+36,"Surely You're Joking Mr Feynman","Feynman, Richard",science,physics,"Random House"
+37,"Farewell to Arms, A","Hemingway, Ernest",fiction,classic,Rupa
+38,"Veteran, The","Forsyth, Frederick",fiction,novel,Transworld
+39,"False Impressions","Archer, Jeffery",fiction,novel,Pan
+40,"Last Lecture, The","Pausch, Randy",nonfiction,autobiography,Hyperion
+41,"Return of the Primitive","Rand, Ayn",philosophy,objectivism,Penguin
+42,"Jurassic Park","Crichton, Michael",fiction,novel,"Random House"
+43,"Russian Journal, A","Steinbeck, John",nonfiction,history,Penguin
+44,"Tales of Mystery and Imagination","Poe, Edgar Allen",fiction,classic,HarperCollins
+45,Freakonomics,"Dubner, Stephen",science,economics,Penguin
+46,"Hidden Connections, The","Capra, Fritjof",science,physics,HarperCollins
+47,"Story of Philosophy, The","Durant, Will",philosophy,history,Pocket
+48,"Asami Asami","Deshpande, P L",fiction,novel,Mauj
+49,"Journal of a Novel","Steinbeck, John",fiction,classic,Penguin
+50,"Once There Was a War","Steinbeck, John",nonfiction,history,Penguin
+51,"Moon is Down, The","Steinbeck, John",fiction,classic,Penguin
+52,"Brethren, The","Grisham, John",fiction,novel,"Random House"
+53,"In a Free State","Naipaul, V. S.",fiction,novel,Rupa
+54,"Catch 22","Heller, Joseph",fiction,classic,"Random House"
+55,"Complete Mastermind, The",BBC,nonfiction,trivia,BBC
+56,"Dylan on Dylan","Dylan, Bob",nonfiction,autobiography,"Random House"
+57,"Soft Computing & Intelligent Systems","Gupta, Madan",tech,data_science,Elsevier
+58,"Textbook of Economic Theory","Stonier, Alfred",tech,economics,Pearson
+59,"Econometric Analysis","Greene, W. H.",tech,economics,Pearson
+60,"Learning OpenCV","Bradsky, Gary",tech,signal_processing,"O'Reilly"
+61,"Data Structures Using C & C++","Tanenbaum, Andrew",tech,computer_science,"Prentice Hall"
+62,"Computer Vision, A Modern Approach","Forsyth, David",tech,signal_processing,Pearson
+63,"Principles of Communication Systems","Taub, Schilling",tech,signal_processing,TMH
+64,"Let Us C","Kanetkar, Yashwant",tech,computer_science,"Prentice Hall"
+65,"Amulet of Samarkand, The","Stroud, Jonathan",fiction,novel,"Random House"
+66,"Crime and Punishment","Dostoevsky, Fyodor",fiction,classic,Penguin
+67,"Angels & Demons","Brown, Dan",fiction,novel,"Random House"
+68,"Argumentative Indian, The","Sen, Amartya",nonfiction,history,Picador
+69,"Sea of Poppies","Ghosh, Amitav",fiction,novel,Penguin
+70,"Idea of Justice, The","Sen, Amartya",philosophy,economics,Penguin
+71,"Raisin in the Sun, A","Hansberry, Lorraine",fiction,novel,Penguin
+72,"All the President's Men","Woodward, Bob",nonfiction,history,"Random House"
+73,"Prisoner of Birth, A","Archer, Jeffery",fiction,novel,Pan
+74,"Scoop!","Nayar, Kuldip",nonfiction,history,HarperCollins
+75,"Ahe Manohar Tari","Deshpande, Sunita",nonfiction,autobiography,Mauj
+76,"Last Mughal, The","Dalrymple, William",nonfiction,history,Penguin
+77,"Social Choice & Welfare, Vol 39 No. 1",Various,tech,economics,Springer
+78,"Radiowaril Bhashane & Shrutika","Deshpande, P L",nonfiction,misc,Mauj
+79,"Gun Gayin Awadi","Deshpande, P L",nonfiction,misc,Mauj
+80,"Aghal Paghal","Deshpande, P L",nonfiction,misc,Mauj
+81,Maqta-e-Ghalib,"Garg, Sanjay",nonfiction,poetry,Mauj
+82,"Beyond Degrees",,philosophy,education,HarperCollins
+83,Manasa,"Kale, V P",nonfiction,misc,Mauj
+84,"India from Midnight to Milennium","Tharoor, Shashi",nonfiction,history,Penguin
+85,"World's Greatest Trials, The","John Doe",nonfiction,history,Penguin
+86,"Great Indian Novel, The","Tharoor, Shashi",fiction,novel,Penguin
+87,"O Jerusalem!","Lapierre, Dominique",nonfiction,history,vikas
+88,"City of Joy, The","Lapierre, Dominique",fiction,novel,vikas
+89,"Freedom at Midnight","Lapierre, Dominique",nonfiction,history,vikas
+90,"Winter of Our Discontent, The","Steinbeck, John",fiction,classic,Penguin
+91,"On Education","Russell, Bertrand",philosophy,education,Routledge
+92,"Free Will","Harris, Sam",nonfiction,psychology,FreePress
+93,"Bookless in Baghdad","Tharoor, Shashi",nonfiction,history,Penguin
+94,"Case of the Lame Canary, The","Gardner, Earle Stanley",fiction,novel,Penguin
+95,"Theory of Everything, The","Hawking, Stephen",science,physics,Jaico
+96,"New Markets & Other Essays","Drucker, Peter",science,economics,Penguin
+97,"Electric Universe","Bodanis, David",science,physics,Penguin
+98,"Hunchback of Notre Dame, The","Hugo, Victor",fiction,classic,"Random House"
+99,"Burning Bright","Steinbeck, John",fiction,classic,Penguin
+100,"Age of Discontuinity, The","Drucker, Peter",nonfiction,economics,"Random House"
+101,"Doctor in the Nude","Gordon, Richard",fiction,novel,Penguin
+102,"Down and Out in Paris & London","Orwell, George",nonfiction,autobiography,Penguin
+103,"Identity & Violence","Sen, Amartya",philosophy,philosophy,Penguin
+104,"Beyond the Three Seas","Dalrymple, William",nonfiction,history,"Random House"
+105,"World's Greatest Short Stories, The",,fiction,classic,Jaico
+106,"Talking Straight","Iacoca, Lee",nonfiction,autobiography,Penguin
+107,"Maugham's Collected Short Stories, Vol 3","Maugham, William S",fiction,classic,Vintage
+108,"Phantom of Manhattan, The","Forsyth, Frederick",fiction,classic,Penguin
+109,"Ashenden of The British Agent","Maugham, William S",fiction,classic,Vintage
+110,"Zen & The Art of Motorcycle Maintenance","Pirsig, Robert",philosophy,autobiography,Vintage
+111,"Great War for Civilization, The","Fisk, Robert",nonfiction,history,HarperCollins
+112,"We the Living","Rand, Ayn",fiction,novel,Penguin
+113,"Artist and the Mathematician, The","Aczel, Amir",science,mathematics,HighStakes
+114,"History of Western Philosophy","Russell, Bertrand",philosophy,philosophy,Routledge
+115,"Selected Short Stories",,fiction,classic,Jaico
+116,"Rationality & Freedom","Sen, Amartya",science,economics,Springer
+117,"Clash of Civilizations and Remaking of the World Order","Huntington, Samuel",nonfiction,history,"Simon&Schuster"
+118,"Uncommon Wisdom","Capra, Fritjof",nonfiction,anthology,Fontana
+119,One,"Bach, Richard",nonfiction,autobiography,Dell
+120,"Karl Marx Biography","Marx, Karl",nonfiction,autobiography,Penguin
+121,"To Sir With Love",Braithwaite,fiction,classic,Penguin
+1,"Fundamentals of Wavelets","Goswami, Jaideva",tech,signal_processing,Wiley
