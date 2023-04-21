@@ -11,7 +11,9 @@ public class BookUtils {
         return nextBookId;
     }
 
-
+    public static void setNextBookId(int nextBookId) {
+        BookUtils.nextBookId = nextBookId;
+    }
 }
 
 

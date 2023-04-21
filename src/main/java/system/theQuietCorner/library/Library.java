@@ -2,6 +2,7 @@ package system.theQuietCorner.library;
 
 import com.fasterxml.jackson.databind.util.JSONPObject;
 import system.theQuietCorner.book.Book;
+import system.theQuietCorner.book.BookFilterType;
 import system.theQuietCorner.user.Customer;
 import system.theQuietCorner.user.User;
 
@@ -26,6 +27,8 @@ public class Library {
     public Library() {
         System.out.println("Opening Library");
     }
+
+
 
     public void addUser(User user){
         usersList.add(user);
@@ -85,14 +88,20 @@ public class Library {
     }
 
     public int getBooksCount(){
-        System.out.println("Books in system: ");
         return booksList.size();
     }
 
-    public void displayBooks(){
-        System.out.println("Books Library");
+    public void displayAllBooks(){
         for (Book book : booksList){
             book.getBookInformation();
+        }
+    }
+
+    public void displayLimitedBooks(int limit){
+        System.out.println("\t\t\t\t 🌟Books in Library 🌟\n" +
+                "Amount of books in Library: "+ this.getBooksCount());
+        for (int i = 0; i < limit; i++) {
+            booksList.get(i).getBookInformation();
         }
     }
 
@@ -102,5 +111,35 @@ public class Library {
         CsvSchema schema = mapper.schemaFor(Book.class).sortedBy("id", "title", "author", "genre", "subgenre", "publisher").withHeader();
         mapper.writer(schema).writeValue(output, booksList);
     }
+
+
+    public void searchBook(BookFilterType filter, String query){
+        for (Book book : booksList){
+            if(filter == BookFilterType.id){
+                if(book.getId() == Integer.parseInt(query)){
+                    book.getBookExtendedDetails();
+                }
+            } else if (filter == BookFilterType.title){
+                if(book.getTitle().contains(query)){
+                    book.getBookExtendedDetails();
+                }
+            } else if (filter == BookFilterType.author) {
+                if(book.getAuthor().contains(query)) {
+                    book.getBookExtendedDetails();
+                }
+            } else if (filter == BookFilterType.genre) {
+                if (book.getGenre().contains(query) || book.getSubgenre().contains(query)){
+                    book.getBookExtendedDetails();
+                }
+            } else if (filter == BookFilterType.publisher) {
+                if(book.getPublisher().contains(query)) {
+                    book.getBookExtendedDetails();
+                }
+            } else {
+                System.out.println("No results containing all your search terms were found.");
+            }
+        }
+    }
+
 
 }

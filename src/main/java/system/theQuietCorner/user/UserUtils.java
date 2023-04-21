@@ -11,4 +11,8 @@ public class UserUtils {
     public static int getNextId() {
         return nextId;
     }
+
+    public static void setNextId(int nextId) {
+        UserUtils.nextId = nextId;
+    }
 }

@@ -1,9 +1,12 @@
 package system.theQuietCorner.book;
 
 import system.ColoursUtils;
+
+import java.util.Comparator;
+
 import static system.theQuietCorner.book.BookUtils.*;
 
-public class Book {
+public class Book implements Comparable<Book>{
     private long id;
     private String title;
     private String author;
@@ -70,8 +73,18 @@ public class Book {
     }
 
     public void getBookInformation(){
+        System.out.printf("\n(#%d), %s written by %s.",
+                this.id, ColoursUtils.brightYellow(this.title), this.author);
+    }
+
+    public void getBookExtendedDetails(){
         System.out.printf(" (#%d), %s written by %s is a %s and %s book. Published by: %s %n",
                 this.id, ColoursUtils.brightYellow(this.title), this.author, this.genre, this.subgenre, this.publisher);
+    }
+
+    @Override
+    public int compareTo(Book o) {
+        return (int) (this.getId() - o.getId());
     }
 
 }
