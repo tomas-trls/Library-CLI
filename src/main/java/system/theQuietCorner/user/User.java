@@ -5,6 +5,7 @@ import system.theQuietCorner.book.Book;
 import system.theQuietCorner.library.Library;
 
 import java.util.ArrayList;
+import java.util.List;
 
 import static system.theQuietCorner.user.UserUtils.*;
 
@@ -69,29 +70,42 @@ public abstract class User {
 
     public abstract UserType getType();
 
-    public String getInformation() {
-        return  String.format(" (#%d), %s, is %d years old, email: %s, is a/an %s",
-                this.id,ColoursUtils.green(this.name), this.age, this.email, getType());
+    public ArrayList<Book> getLoanedBooks() {
+        return loanedBooks;
     }
 
-    public void loanBook(int id){
-        for (Book book :Library.booksList) {
-            if(book.getId() == id) {
+
+    public String getInformation(String option) {
+        if (option.equals("return")) {
+            return String.format("(#%d), %s, is %d years old, email: %s, is a/an %s",
+                    this.id, ColoursUtils.green(this.name), this.age, this.email, getType());
+        } else {
+            System.out.printf("(#%d), %s, is %d years old, email: %s, is a/an %s",
+                    this.id, ColoursUtils.green(this.name), this.age, this.email, getType());
+            return "";
+        }
+    }
+
+    public void loanBook(int id) throws Exception {
+        for (Book book : Library.booksList) {
+            if (book.getId() == id) {
                 this.loanedBooks.add(book);
                 Library.booksList.remove(book);
+                Library.libraryLoanedBooks.put(book.getId(), this.id);
                 System.out.println("Book is now yours");
                 return;
             }
         }
-        System.out.println("Wrong BookId");
+        System.out.println("Book out of stock.");
 
     }
 
-    public void returnBook(int id){
-        for(Book book: loanedBooks){
-            if(book.getId() == id){
+    public void returnBook(int id) throws Exception {
+        for (Book book : loanedBooks) {
+            if (book.getId() == id) {
                 this.loanedBooks.remove(book);
                 Library.booksList.add(book);
+                Library.libraryLoanedBooks.remove(book.getId());
                 System.out.println("Returned the Book");
                 return;
             }
@@ -100,12 +114,14 @@ public abstract class User {
 
     }
 
-    public void displayLoanedBooks(){
-        System.out.println(this.name+" Loaned Book Library: ");
-        for(Book book : this.loanedBooks){
-           book.getBookInformation();
+    public void displayLoanedBooks() {
+        System.out.println(this.name + " Personal Loaned Books: ");
+        System.out.println("Books loaned: "+this.loanedBooks.size());
+        System.out.println("=============================");
+        for (Book book : this.loanedBooks) {
+            book.getBookExtendedDetails();
         }
+        System.out.println("=============================");
     }
-
 
 }

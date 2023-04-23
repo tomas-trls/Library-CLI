@@ -1,0 +1,4 @@
+id,title,author,genre,subgenre,publisher,userId,userName,userAge,userEmail
+1,"Fundamentals of Wavelets","Goswami, Jaideva",tech,signal_processing,Wiley,4,AdminTOm,24,tomaadae
+4,Superfreakonomics,"Dubner, Stephen",science,economics,HarperCollins,3,Toma,22,e
+6,"Nature of Statistical Learning Theory, The","Vapnik, Vladimir",tech,data_science,Springer,3,Toma,22,e

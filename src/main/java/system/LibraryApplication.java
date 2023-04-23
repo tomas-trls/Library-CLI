@@ -6,18 +6,6 @@ import system.theQuietCorner.commands.CommandRunner;
 
 public class LibraryApplication {
     public static void main(String[] args) throws Exception {
-        new CommandRunner().start();
-
-//        jess.displayLoanedBooks();
-//        jess.loanBook(1);
-//
-//        jess.displayLoanedBooks();
-//
-//        jess.returnBook(1);
-//
-//        theQuietCorner.displayBooks();
-//
-//        jess.displayLoanedBooks();
-//        theQuietCorner.exportToJson();
+        new CommandRunner().buildLibrary();
     }
 }

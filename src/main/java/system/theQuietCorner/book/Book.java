@@ -2,8 +2,6 @@ package system.theQuietCorner.book;
 
 import system.ColoursUtils;
 
-import java.util.Comparator;
-
 import static system.theQuietCorner.book.BookUtils.*;
 
 public class Book implements Comparable<Book>{
@@ -72,9 +70,15 @@ public class Book implements Comparable<Book>{
         this.publisher = publisher;
     }
 
-    public void getBookInformation(){
-        System.out.printf("\n(#%d), %s written by %s.",
-                this.id, ColoursUtils.brightYellow(this.title), this.author);
+    public String getBookInformation(String option) {
+        if(option.equals("return")){
+            return String.format("(#%d), %s written by %s.",
+                    this.id, ColoursUtils.brightYellow(this.title), this.author);
+        } else {
+            System.out.printf("(#%d), %s written by %s.",
+                    this.id, ColoursUtils.brightYellow(this.title), this.author);
+            return "";
+        }
     }
 
     public void getBookExtendedDetails(){
@@ -86,5 +90,4 @@ public class Book implements Comparable<Book>{
     public int compareTo(Book o) {
         return (int) (this.getId() - o.getId());
     }
-
 }

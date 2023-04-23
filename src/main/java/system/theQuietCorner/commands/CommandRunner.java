@@ -1,10 +1,12 @@
 package system.theQuietCorner.commands;
 
+import system.theQuietCorner.book.Book;
 import system.theQuietCorner.book.BookFilterType;
 import system.theQuietCorner.book.BookUtils;
 import system.theQuietCorner.library.Library;
 import system.theQuietCorner.user.*;
 
+import java.util.Collections;
 import java.util.HashMap;
 import java.util.Objects;
 import java.util.Scanner;
@@ -13,16 +15,15 @@ public class CommandRunner {
     private final Scanner scanner = new Scanner(System.in);
     public Library theQuietCorner = new Library();
 
-
-
-    public void start() throws Exception {
-        BookUtils.setNextBookId(0);
-        UserUtils.setNextId(0);
-        Library.usersList.clear();
-        Library.booksList.clear();
+    public void buildLibrary() throws Exception {
+        theQuietCorner.generateBooks();
         theQuietCorner.addUser(new Admin("admin", 99, "admin@admin.com", "admin"));
         theQuietCorner.addUser(new Customer("customer", 50, "customer@customer.com", "customer"));
-        theQuietCorner.generateBooks();
+        theQuietCorner.copyLibraryArr();
+        start();
+    }
+
+    public void start() throws Exception {
         System.out.println("Please choose a valid option :");
         System.out.println("1: Log In 🌟\t2: Sign Up 💫\t3: Exit 👋");
 
@@ -114,7 +115,6 @@ public class CommandRunner {
         wrongInput("login");
     }
 
-
     void logInAsAdmin(User user) throws Exception {
         System.out.println("\n\t\t\t\t 🌟Admin Menu 🌟\n" +
                 "Session of " + user.getName() +
@@ -131,7 +131,7 @@ public class CommandRunner {
                 System.out.println("Settings");
                 break;
             case "4":
-                exit();
+                start();
                 break;
             default:
                 logInAsAdmin(user);
@@ -143,23 +143,20 @@ public class CommandRunner {
         System.out.println("\n\t\t\t\t 🌟Customer Menu 🌟\n" +
                 "Session of " + user.getName()
                 +
-                "\n1: Books Control Panel 📚\t2: Loans 🐳\t3: Settings ⚙️\t4: Exit 👋");
+                "\n1: Books Control Panel 📚\t2: Settings ⚙️\t3: Log Out 👋");
         String option = scanner.nextLine();
         switch (option) {
             case "1":
-                System.out.println("Books");
+                customerBooksCommands(user);
                 break;
             case "2":
-                System.out.println("Loans");
-                break;
-            case "3":
                 System.out.println("Settings");
                 break;
-            case "4":
-                exit();
+            case "3":
+                start();
                 break;
             default:
-                logInAsAdmin(user);
+                logInAsCustomer(user);
                 break;
         }
     }
@@ -167,19 +164,20 @@ public class CommandRunner {
     void adminBooksCommands(User user) throws Exception {
         System.out.println("\n\t\t\t\t 🌟Admin Books Menu 🌟\n" +
                 "Session of " + user.getName() +
-                "\n 1: See all books in Library📚\t2: See all books loaned ✉️\t3: Print books in CSV 🖨\t4: Go Back ↩️"
+                "\n 1: See all books in Library📚\t2: See all books loaned ✉️\t3: Print books in Library in CSV 🖨\t4: Go Back ↩️"
         );
         String option = scanner.nextLine();
-        switch (option){
+        switch (option) {
             case "1":
                 booksListCommands(user);
                 break;
             case "2":
-                System.out.println("All Loaned Books");
+                adminLoanedBooks(user);
                 break;
             case "3":
                 System.out.println("Printing Books currently available in the library in CSV....");
-                theQuietCorner.exportToJson();
+                theQuietCorner.exportLibraryToCSV(Library.booksList, "booksInLibrary.csv");
+                adminBooksCommands(user);
                 break;
             case "4":
                 logInAsAdmin(user);
@@ -190,27 +188,59 @@ public class CommandRunner {
         }
     }
 
-    int limit = 10;
-    void booksListCommands(User user) throws Exception {
-        theQuietCorner.displayLimitedBooks(limit);
-        System.out.println("\nLimited to "+limit+" books.");
-        System.out.println("1: Change Limit of Display\t2: Search Book By...\t3:Sort Books by...\t4: Go Back ↩️");
+    void customerBooksCommands(User user) throws Exception {
+        System.out.println("\n\t\t\t\t 🌟Customer Books Menu 🌟\n" +
+                "Session of " + user.getName() +
+                "\n 1: See all books in Library📚\t2: See my books loaned ✉️\t3: Go Back ↩️"
+        );
         String option = scanner.nextLine();
         switch (option) {
             case "1":
-                setCustomLimit(user);
+                booksListCommands(user);
+                break;
+            case "2":
+                user.displayLoanedBooks();
+                customerBooksCommands(user);
+                break;
+            case "3":
+                logInAsCustomer(user);
+                break;
+            default:
+                customerBooksCommands(user);
+                break;
+        }
+
+    }
+
+
+    int limit = 10;
+
+    void booksListCommands(User user) throws Exception {
+        theQuietCorner.displayLimitedBooks(limit);
+        System.out.println("\nLimited to " + limit + " books.");
+        System.out.println("1: Change Limit of Display\t2: Search Book By...\t3: Sort Books by...\t4: Loan a Book\t5: Return a book\t6: Go Back ↩️");
+        String option = scanner.nextLine();
+        switch (option) {
+            case "1":
+                setCustomLimitForLibrary(user);
                 break;
             case "2":
                 searchBookBy(user);
                 break;
             case "3":
-                System.out.println("Sort By");
+                sortBookBy(user);
                 break;
             case "4":
+                loanBook(user);
+                break;
+            case "5":
+                returnBook(user);
+                break;
+            case "6":
                 if (user.getType() == UserType.admin) {
                     adminBooksCommands(user);
                 } else if (user.getType() == UserType.customer) {
-                    System.out.println("CustomerBooksCommands");
+                    customerBooksCommands(user);
                 }
                 break;
             default:
@@ -220,7 +250,7 @@ public class CommandRunner {
     }
 
 
-    void setCustomLimit(User user) throws Exception {
+    void setCustomLimitForLibrary(User user) throws Exception {
         System.out.println("1: Set custom limit #️⃣\t 2: Display All Books 📚\t3: Go back ↩️");
         String choice = scanner.nextLine();
         if (choice.equals("1")) {
@@ -238,30 +268,123 @@ public class CommandRunner {
     void searchBookBy(User user) throws Exception {
         System.out.println("1: Id\t2: Title\t3: Author\t4: Genre\t5: Publisher\t6: Go Back ↩️");
         String option = scanner.nextLine();
-        System.out.println("Type your query");
-        String query = scanner.nextLine();
-        switch (option){
+        switch (option) {
             case "1":
-                theQuietCorner.searchBook(BookFilterType.id,query);
+                theQuietCorner.searchBook(BookFilterType.id);
+                searchBookBy(user);
                 break;
             case "2":
-                theQuietCorner.searchBook(BookFilterType.title,query);
+                theQuietCorner.searchBook(BookFilterType.title);
+                searchBookBy(user);
                 break;
             case "3":
-                theQuietCorner.searchBook(BookFilterType.author,query);
+                theQuietCorner.searchBook(BookFilterType.author);
+                searchBookBy(user);
                 break;
             case "4":
-                theQuietCorner.searchBook(BookFilterType.genre,query);
+                theQuietCorner.searchBook(BookFilterType.genre);
+                searchBookBy(user);
                 break;
             case "5":
-                theQuietCorner.searchBook(BookFilterType.publisher,query);
+                theQuietCorner.searchBook(BookFilterType.publisher);
+                searchBookBy(user);
                 break;
             case "6":
                 booksListCommands(user);
+                break;
             default:
                 System.out.println("Please select a valid option ❌");
                 searchBookBy(user);
         }
+    }
+
+    void sortBookBy(User user) throws Exception {
+        System.out.println("1: Id\t2: Title\t3: Author\t4: Genre\t5: Publisher\t6: Go Back ↩️");
+        String option = scanner.nextLine();
+        switch (option) {
+            case "1":
+                theQuietCorner.sortBookBy(BookFilterType.id, limit);
+                sortBookBy(user);
+                break;
+            case "2":
+                theQuietCorner.sortBookBy(BookFilterType.title, limit);
+                sortBookBy(user);
+                break;
+            case "3":
+                theQuietCorner.sortBookBy(BookFilterType.author, limit);
+                sortBookBy(user);
+                break;
+            case "4":
+                theQuietCorner.sortBookBy(BookFilterType.genre, limit);
+                sortBookBy(user);
+                break;
+            case "5":
+                theQuietCorner.sortBookBy(BookFilterType.publisher, limit);
+                sortBookBy(user);
+                break;
+            case "6":
+                booksListCommands(user);
+                break;
+            default:
+                System.out.println("Please select a valid option ❌");
+                sortBookBy(user);
+        }
+    }
+
+
+    void loanBook(User user) throws Exception {
+        System.out.println("Do you want to loan a book?\n" +
+                "1: Yes ✅\t 2: No, Go Back ↩️");
+        String option = scanner.nextLine();
+        if (option.equals("1")) {
+            System.out.println("Please insert the id of the book you want to borrow:");
+            int id = Integer.parseInt(scanner.nextLine());
+            user.loanBook(id);
+            loanBook(user);
+        } else if (option.equals("2")) {
+            booksListCommands(user);
+        }
+    }
+
+    void returnBook(User user) throws Exception {
+        System.out.println("Do you want to return a book?\n" +
+                "1: Yes ✅\t 2: No, Go Back ↩️");
+        String option = scanner.nextLine();
+        if (option.equals("1")) {
+            if (user.getLoanedBooks().size() == 0) {
+                System.out.println("You don't have loaned books.");
+                booksListCommands(user);
+            } else {
+                System.out.println("Please insert the id of the book you want to borrow:");
+                int id = Integer.parseInt(scanner.nextLine());
+                user.returnBook(id);
+                returnBook(user);
+            }
+        } else if (option.equals("2")) {
+            booksListCommands(user);
+        }
+    }
+
+
+    void adminLoanedBooks(User user) throws Exception {
+        System.out.println("\n\t\t\t\t 🌟Admin Loaned Books Menu 🌟\n" +
+                "Session of " + user.getName()
+        );
+        theQuietCorner.displayLibraryLoanedBook();
+        System.out.println("1: Search Book By...\t2: Sort Books by...\t3: Print list of Loaned Books in CSV 🖨\t4: Go Back ↩️");
+        String option = scanner.nextLine();
+        switch (option) {
+            case "1":
+
+                break;
+            case "2":
+                break;
+            case "3":
+                System.out.println("Printing Books currently available in the library in CSV....");
+                theQuietCorner.exportLoanToCsv(Library.libraryLoanedBooksArr, "loanBooks.csv");
+                break;
+        }
+        adminBooksCommands(user);
     }
 
 
