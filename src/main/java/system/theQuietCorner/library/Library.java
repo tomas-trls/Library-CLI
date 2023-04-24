@@ -254,6 +254,7 @@ public class Library {
                     book.getGenre(),
                     book.getSubgenre(),
                     book.getPublisher(),
+                    book.getCounter(),
                     user.getId(),
                     user.getName(),
                     user.getAge(),

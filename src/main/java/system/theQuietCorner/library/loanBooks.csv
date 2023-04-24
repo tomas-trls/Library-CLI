@@ -1,5 +1,4 @@
 id,title,author,genre,subgenre,publisher,counter,userId,userName,userAge,userEmail
-56,"Soft Computing & Intelligent Systems","Gupta, Madan",tech,data_science,Elsevier,9,Hoe,25,hoeder,
-24,"Signal and the Noise, The","Silver, Nate",tech,data_science,Penguin,9,Hoe,25,hoeder,
-25,"Python for Data Analysis","McKinney, Wes",tech,data_science,"O'Reilly",9,Hoe,25,hoeder,
-45,"Hidden Connections, The","Capra, Fritjof",science,physics,HarperCollins,9,Hoe,25,hoeder,
+2,"Data Smart","Foreman, John",tech,data_science,Wiley,1,9,Tomas,2,tomast25@hotmail.com
+3,"God Created the Integers","Hawking, Stephen",tech,mathematics,Penguin,2,9,Tomas,2,tomast25@hotmail.com
+4,Superfreakonomics,"Dubner, Stephen",science,economics,HarperCollins,3,9,Tomas,2,tomast25@hotmail.com
