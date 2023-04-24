@@ -1,4 +1,5 @@
-id,title,author,genre,subgenre,publisher,userId,userName,userAge,userEmail
-1,"Fundamentals of Wavelets","Goswami, Jaideva",tech,signal_processing,Wiley,4,AdminTOm,24,tomaadae
-4,Superfreakonomics,"Dubner, Stephen",science,economics,HarperCollins,3,Toma,22,e
-6,"Nature of Statistical Learning Theory, The","Vapnik, Vladimir",tech,data_science,Springer,3,Toma,22,e
+id,title,author,genre,subgenre,publisher,counter,userId,userName,userAge,userEmail
+56,"Soft Computing & Intelligent Systems","Gupta, Madan",tech,data_science,Elsevier,9,Hoe,25,hoeder,
+24,"Signal and the Noise, The","Silver, Nate",tech,data_science,Penguin,9,Hoe,25,hoeder,
+25,"Python for Data Analysis","McKinney, Wes",tech,data_science,"O'Reilly",9,Hoe,25,hoeder,
+45,"Hidden Connections, The","Capra, Fritjof",science,physics,HarperCollins,9,Hoe,25,hoeder,

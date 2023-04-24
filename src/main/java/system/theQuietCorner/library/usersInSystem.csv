@@ -1,0 +1,10 @@
+id,name,age,email,type,hasLoanedBooks
+2,customer,50,customer@customer.com,customer,true
+9,Tomas,34,teste,admin,true
+1,admin,99,admin@admin.com,admin,false
+3,Tomas,22,tom@customer.com,customer,false
+4,Andrea,30,andrea@customer.com,customer,false
+5,antonia,66,antonia@customer.com,customer,false
+6,fernando,81,fernando@customer.com,customer,false
+7,Lalo,81,lalo@customer.com,customer,false
+8,Lucas,24,lucas@customer.com,customer,false

@@ -2,8 +2,7 @@ package system.theQuietCorner.library;
 
 import system.ColoursUtils;
 import system.theQuietCorner.book.*;
-import system.theQuietCorner.user.Admin;
-import system.theQuietCorner.user.User;
+import system.theQuietCorner.user.*;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -13,7 +12,6 @@ import java.util.*;
 
 import com.fasterxml.jackson.databind.*;
 import com.fasterxml.jackson.dataformat.csv.*;
-import system.theQuietCorner.user.UserType;
 
 public class Library {
     public static final ArrayList<User> usersList = new ArrayList<User>();
@@ -29,16 +27,39 @@ public class Library {
         usersList.add(user);
     }
 
+    public void deleteUser(int id) {
+        for (User user : usersList) {
+            if (user.getId() == id) {
+                usersList.remove(user);
+                return;
+            }
+        }
+        System.out.println("Wrong Id ❌");
+    }
+
     public int getUserCount() {
         return usersList.size();
     }
 
     public void listUsers() {
-        System.out.println("Users List: ");
+        System.out.println("\t\t\t\t 🌟Users in System 🌟\n" +
+                "Amount of users in Library: " + this.getUserCount());
+        System.out.println("==========================================================");
         for (User user : usersList) {
             System.out.println(user.getInformation("return"));
         }
         ;
+        System.out.println("==========================================================");
+    }
+
+    public void listUsersWithLimit(int limit) {
+        System.out.println("\t\t\t\t 🌟Users in System 🌟\n" +
+                "Amount of users in Library: " + this.getUserCount());
+        System.out.println("==========================================================");
+        for (int i = 0; i < limit; i++) {
+            System.out.println(usersList.get(i).getInformation("return"));
+        }
+        System.out.println("==========================================================");
     }
 
     public int getAdminCount() {
@@ -66,8 +87,72 @@ public class Library {
         usersList.stream().filter(user -> user.getType() == UserType.customer).forEach(user -> user.getInformation(""));
     }
 
+    public void searchUser(UserFilterType filter) {
+        Scanner scanner = new Scanner(System.in);
+        System.out.println("Type your search query:");
+        String query = scanner.nextLine();
+        for (User user : usersList) {
+            if (filter == UserFilterType.id) {
+                if (user.getId() == Integer.parseInt(query)) {
+                    user.getInformation("");
+                }
+            } else if (filter == UserFilterType.name) {
+                if (user.getName().toLowerCase().contains(query.toLowerCase())) {
+                    user.getInformation("");
+                }
+            } else if (filter == UserFilterType.age) {
+                if (String.valueOf(user.getAge()).contains(query.toLowerCase())) {
+                    user.getInformation("");
+                }
+            } else if (filter == UserFilterType.email) {
+                if (user.getEmail().toLowerCase().contains(query.toLowerCase())) {
+                    user.getInformation("");
+                }
+            } else if (filter == UserFilterType.type) {
+                if (String.valueOf(user.getType()).contains(query.toLowerCase())) {
+                    user.getInformation("");
+                }
+            } else {
+                System.out.println("No results containing your search terms were found.");
+            }
+        }
+    }
+
+    public void sortUsersBy(UserFilterType sortFilter, int limit) {
+        switch (sortFilter) {
+            case name:
+                usersList.sort(new SortUserByName());
+                break;
+            case age:
+                usersList.sort(new SortUserByAge());
+                break;
+            case email:
+                usersList.sort(new SortUserByEmail());
+                break;
+            case type:
+                usersList.sort(new SortUserByType());
+                break;
+            case loaned:
+                usersList.sort(new SortUserByHasLoanedBook());
+                break;
+            default:
+                usersList.sort(new SortUserById());
+        }
+        listUsersWithLimit(limit);
+    }
+
     public void addBook(Book book) {
         booksList.add(book);
+    }
+
+    public void deleteBook(int id) {
+        for (Book book : booksList) {
+            if (book.getId() == id) {
+                booksList.remove(book);
+                return;
+            }
+        }
+        System.out.println("Wrong Id ❌");
     }
 
     public void generateBooks() {
@@ -105,24 +190,38 @@ public class Library {
     public void displayLimitedBooks(int limit) {
         System.out.println("\t\t\t\t 🌟Books in Library 🌟\n" +
                 "Amount of books in Library: " + this.getBooksCount());
+        System.out.println("==========================================================");
         for (int i = 0; i < limit; i++) {
             System.out.println(booksList.get(i).getBookInformation("return"));
         }
+        System.out.println("==========================================================");
     }
 
     public void displayLimitedBooksExtendedDetails(int limit) {
         System.out.println("\t\t\t\t 🌟Books in Library 🌟\n" +
                 "Amount of books in Library: " + this.getBooksCount());
+        System.out.println("==========================================================");
         for (int i = 0; i < limit; i++) {
             booksList.get(i).getBookExtendedDetails();
         }
+        System.out.println("==========================================================");
     }
 
     public void exportLibraryToCSV(ArrayList<Book> booksArr, String fileName) throws Exception {
         CsvMapper mapper = new CsvMapper();
         File output = new File(System.getProperty("user.dir") + "/src/main/java/system/theQuietCorner/library/" + fileName);
-        CsvSchema schema = mapper.schemaFor(Book.class).sortedBy("id", "title", "author", "genre", "subgenre", "publisher").withHeader();
+        CsvSchema schema = mapper.schemaFor(Book.class).sortedBy("id", "title", "author", "genre", "subgenre", "publisher","counter").withHeader();
         mapper.writer(schema).writeValue(output, booksArr);
+    }
+
+    public void exportUsersToCSV(ArrayList<User> userArr, String fileName) throws Exception {
+        CsvMapper mapper = new CsvMapper();
+        CsvSchema.Builder schemaBuilder = CsvSchema.builder();
+        schemaBuilder.addColumn("id").addColumn("name").addColumn("age").addColumn("email").addColumn("type").addColumn("hasLoanedBooks");
+        schemaBuilder.setUseHeader(true);
+        File output = new File(System.getProperty("user.dir") + "/src/main/java/system/theQuietCorner/library/" + fileName);
+        CsvSchema schema = schemaBuilder.build().sortedBy("id");
+        mapper.writer(schema).writeValue(output, userArr);
     }
 
     public static void exportLoanToCsv(ArrayList<Object[]> booksArr, String fileName) throws Exception {
@@ -134,7 +233,8 @@ public class Library {
                 .addColumn("author")
                 .addColumn("genre")
                 .addColumn("subgenre")
-                .addColumn("publisher");
+                .addColumn("publisher")
+                .addColumn("counter");
         // Add user columns to the schema
         schemaBuilder.addColumn("userId")
                 .addColumn("userName")
@@ -195,7 +295,7 @@ public class Library {
                     book.getBookExtendedDetails();
                 }
             } else {
-                System.out.println("No results containing all your search terms were found.");
+                System.out.println("No results containing your search terms were found.");
             }
         }
     }
@@ -213,6 +313,9 @@ public class Library {
                 break;
             case publisher:
                 booksList.sort(new SortBooksByPublisher());
+                break;
+            case counter:
+                booksList.sort(new SortBooksByCounter());
                 break;
             default:
                 Collections.sort(booksList);
@@ -243,14 +346,16 @@ public class Library {
         StringBuilder loanedBooksInfo = new StringBuilder();
 
         for (Object[] objects : libraryLoanedBooksArr) {
-                User user = (User) objects[1];
-                Book book = (Book) objects[0];
-                loanedBooksInfo.append(book.getBookInformation("return"))
-                        .append(", Loaned by: ")
-                        .append(user.getInformation("return"))
-                        .append(", ")
-                        .append(System.lineSeparator());
+            User user = (User) objects[1];
+            Book book = (Book) objects[0];
+            loanedBooksInfo.append(book.getBookInformation("return"))
+                    .append(", Loaned by: ")
+                    .append(user.getInformation("return"))
+                    .append(", ")
+                    .append(System.lineSeparator());
         }
+        System.out.println("==========================================================");
         System.out.println(loanedBooksInfo);
+        System.out.println("==========================================================");
     }
 }

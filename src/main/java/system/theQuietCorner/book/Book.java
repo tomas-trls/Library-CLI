@@ -12,6 +12,7 @@ public class Book implements Comparable<Book>{
     private String subgenre;
 
     private String publisher;
+    private int counter = 0;
 
     public Book(String title, String author, String genre, String subgenre, String publisher) {
         this.id = generateUniqueBookId();
@@ -70,20 +71,29 @@ public class Book implements Comparable<Book>{
         this.publisher = publisher;
     }
 
+    public int getCounter() {
+        return counter;
+    }
+
+    public void setCounter(int counter) {
+        this.counter = counter;
+    }
+
+
     public String getBookInformation(String option) {
         if(option.equals("return")){
-            return String.format("(#%d), %s written by %s.",
-                    this.id, ColoursUtils.brightYellow(this.title), this.author);
+            return String.format("(#%d), %s written by %s. (LOANED %d times)",
+                    this.getId(), ColoursUtils.brightYellow(this.getTitle()), this.getAuthor(),this.getCounter());
         } else {
-            System.out.printf("(#%d), %s written by %s.",
-                    this.id, ColoursUtils.brightYellow(this.title), this.author);
+            System.out.printf("(#%d), %s written by %s. (LOANED %d times)",
+                    this.getId(), ColoursUtils.brightYellow(this.getTitle()), this.getAuthor(), this.getCounter());
             return "";
         }
     }
 
     public void getBookExtendedDetails(){
-        System.out.printf(" (#%d), %s written by %s is a %s and %s book. Published by: %s %n",
-                this.id, ColoursUtils.brightYellow(this.title), this.author, this.genre, this.subgenre, this.publisher);
+        System.out.printf(" (#%d), %s written by %s is a %s and %s book. Published by: %s. (LOANED %d times) %n",
+                this.getId(), ColoursUtils.brightYellow(this.getTitle()), this.getAuthor(), this.getGenre(), this.getSubgenre(), this.getPublisher(), this.getCounter());
     }
 
     @Override

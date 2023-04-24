@@ -1,5 +1,6 @@
 package system.theQuietCorner.user;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
 import system.ColoursUtils;
 import system.theQuietCorner.book.Book;
 import system.theQuietCorner.library.Library;
@@ -15,10 +16,20 @@ public abstract class User {
 
     private int age;
     private String email;
-
+    @JsonIgnore
     private String password;
-
+    @JsonIgnore
     private ArrayList<Book> loanedBooks = new ArrayList<>();
+
+    private boolean hasLoanedBooks = false;
+
+    public boolean isHasLoanedBooks() {
+        return hasLoanedBooks;
+    }
+
+    public void setHasLoanedBooks(boolean hasLoanedBooks) {
+        this.hasLoanedBooks = hasLoanedBooks;
+    }
 
     public User(String name, int age, String email, String password) {
         this.id = generateUniqueId();
@@ -77,30 +88,37 @@ public abstract class User {
 
     public String getInformation(String option) {
         if (option.equals("return")) {
-            return String.format("(#%d), %s, is %d years old, email: %s, is a/an %s",
-                    this.id, ColoursUtils.green(this.name), this.age, this.email, getType());
+            return String.format("(#%d), %s, is %d years old, email: %s, is a/an %s, hasLoanedBooks?: %b",
+                    this.getId(), ColoursUtils.green(this.getName()), this.getAge(), this.getEmail(), this.getType(),this.isHasLoanedBooks() );
         } else {
-            System.out.printf("(#%d), %s, is %d years old, email: %s, is a/an %s",
-                    this.id, ColoursUtils.green(this.name), this.age, this.email, getType());
+            System.out.printf("(#%d), %s, is %d years old, email: %s, is a/an %s, hasLoanedBooks?: %b %n",
+                    this.getId(), ColoursUtils.green(this.getName()), this.getAge(), this.getEmail(), this.getType(), this.isHasLoanedBooks());
             return "";
         }
     }
 
-    public void loanBook(int id) throws Exception {
+    public void loanBook(int id) {
         for (Book book : Library.booksList) {
             if (book.getId() == id) {
                 this.loanedBooks.add(book);
+                book.setCounter(book.getCounter()+1);
                 Library.booksList.remove(book);
                 Library.libraryLoanedBooks.put(book.getId(), this.id);
                 System.out.println("Book is now yours");
+                setHasLoanedBooks(true);
                 return;
             }
         }
         System.out.println("Book out of stock.");
-
     }
 
-    public void returnBook(int id) throws Exception {
+    public void returnBook(int id) {
+        if(this.loanedBooks.size() == 0 ){
+            System.out.println("You have no loaned books.");
+            setHasLoanedBooks(false);
+            return;
+        }
+        displayLoanedBooks();
         for (Book book : loanedBooks) {
             if (book.getId() == id) {
                 this.loanedBooks.remove(book);
@@ -111,17 +129,15 @@ public abstract class User {
             }
         }
         System.out.println("Wrong Book Id");
-
     }
 
     public void displayLoanedBooks() {
-        System.out.println(this.name + " Personal Loaned Books: ");
+        System.out.println("\n\t\t\t\t 🌟"+this.name + " Personal Loaned Books: ");
         System.out.println("Books loaned: "+this.loanedBooks.size());
-        System.out.println("=============================");
+        System.out.println("==========================================================");
         for (Book book : this.loanedBooks) {
             book.getBookExtendedDetails();
         }
-        System.out.println("=============================");
+        System.out.println("==========================================================");
     }
-
 }
