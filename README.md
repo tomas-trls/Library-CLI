@@ -42,7 +42,7 @@ Admins have access to a user management system where they can view all the users
 ### 📝 Loan System
 Customers can loan a book and view their currently loaned books. They cannot loan a book that is already out on loan. Admins can run a report that shows all books currently out on loan and the number of times each book has been loaned out.
 
-### 📊 Reports
+### 🧾 Reports
 Admins can run a report that shows all books currently out on loan and the number of times each book has been loaned out. The report can be outputted in CSV format.
 
 ## ⚡️ Technologies used ⚡️
