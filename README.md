@@ -45,12 +45,22 @@ Customers can loan a book and view their currently loaned books. They cannot loa
 ### 🧾 Reports
 Admins can run a report that shows all books currently out on loan and the number of times each book has been loaned out. The report can be outputted in CSV format.
 
-## ⚡️ Technologies used ⚡️
+## ⚡️ Technologies used 
 
 <p align="center">
  <img src="https://www.vectorlogo.zone/logos/java/java-icon.svg" alt="java" width="80" height="80"/> 
  <img src="https://resources.jetbrains.com/storage/products/company/brand/logos/IntelliJ_IDEA_icon.png?_ga=2.49565158.1382529061.1682429692-955666481.1682429683" alt="IntellijIDEA" width="80" height="80"/> 
 </p>
+
+## 🚀 Future Features
+
+- Sorting the Loaned books ArrayList
+- Searching the Loaned Books ArrayList
+- Adding the option to leave reviews to the books
+- Sorting and Searching books by reviews
+- Adding multiple times the same book, with different id, but common counter. To see if the book is popular.
+- Adding option to add and Remove books to Library by admins (already done in background, just need to add method in commandRunner)
+- Pass the book Arrays and document Object Model Database to a Relational Database with SQL
 
 ## 💎 Contact Me 💎
 
